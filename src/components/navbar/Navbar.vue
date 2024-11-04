@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import NavbarLink from '@/components/navbar/NavbarLink.vue'
+import { RouterLink } from 'vue-router';
+import NavbarLink from '@/components/navbar/NavbarLink.vue';
 </script>
 
 <template>

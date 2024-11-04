@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { IPuzzleBlock } from '@/assets/ts/puzzle'
+import type { IPuzzleBlock } from '@/assets/ts/puzzle';
 
 const props = defineProps<{
-  block: IPuzzleBlock
-}>()
+  block: IPuzzleBlock;
+}>();
 </script>
 
 <template>

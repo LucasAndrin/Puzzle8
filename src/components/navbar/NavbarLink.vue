@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { RouterLink, type RouterLinkProps } from 'vue-router'
+import { RouterLink, type RouterLinkProps } from 'vue-router';
 
-const props = defineProps<RouterLinkProps>()
+const props = defineProps<RouterLinkProps>();
 </script>
 
 <template>
