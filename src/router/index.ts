@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import HeuristicSearch from '@/views/Search/HeuristicView.vue'
-import HorizontalSearch from '@/views/Search/HorizontalView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import HeuristicSearch from '../views/puzzle/PuzzleHeuristicView.vue';
+import HorizontalSearch from '../views/puzzle/PuzzleHorizontalView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,19 +9,19 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
     },
     {
       path: '/heuristic',
       name: 'heuristic',
-      component: HeuristicSearch
+      component: HeuristicSearch,
     },
     {
       path: '/horizontal',
       name: 'horizontal',
-      component: HorizontalSearch
-    }
-  ]
-})
+      component: HorizontalSearch,
+    },
+  ],
+});
 
-export default router
+export default router;
