@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { movePuzzleBlock, type IPuzzleBlock } from '@/assets/ts/puzzle';
-import Puzzle from '@/components/puzzle/Puzzle.vue';
+import { ref } from 'vue'
+import { movePuzzleBlock, type IPuzzleBlock } from '@/assets/ts/puzzle'
+import Puzzle from '@/components/puzzle/Puzzle.vue'
+import PuzzleBlock from '@/components/puzzle/PuzzleBlock.vue'
 
 const data = ref<IPuzzleBlock[]>([
   { value: 1, xAxis: 0, yAxis: 0 },
@@ -13,7 +14,7 @@ const data = ref<IPuzzleBlock[]>([
   { value: 7, xAxis: 0, yAxis: 2 },
   { value: 8, xAxis: 1, yAxis: 2 },
   { value: 0, xAxis: 2, yAxis: 2 },
-]);
+])
 </script>
 
 <template>
@@ -22,6 +23,15 @@ const data = ref<IPuzzleBlock[]>([
       test
     </button>
 
-    <Puzzle :data />
+    <Puzzle
+      v-slot="{ block }"
+      class="text-dark rounded-lg bg-white p-4 shadow-xl dark:bg-slate-800 dark:text-white"
+      :data
+    >
+      <PuzzleBlock
+        class="flex items-center justify-center rounded bg-indigo-500"
+        :block
+      />
+    </Puzzle>
   </div>
 </template>
