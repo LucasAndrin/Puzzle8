@@ -6,7 +6,7 @@ export default {
   },
   safelist: [
     {
-      pattern: /(top|left)-([0-9]+)/,
+      pattern: /(top|left|h|w)-([0-9]+)/,
     },
   ],
   plugins: [],
