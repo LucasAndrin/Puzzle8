@@ -46,7 +46,7 @@ export function toggleBlocks(
   return true;
 }
 
-function getPuzzleWeight(puzzle: IPuzzle): number {
+export function getPuzzleWeight(puzzle: IPuzzle): number {
   return puzzle.reduce((weight, block) => {
     return weight + block.value * (block.xAxis * 31 + block.yAxis * 17);
   }, 0);
