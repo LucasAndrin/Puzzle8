@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IPuzzleBlock } from '@/assets/ts/puzzle';
+import type { IPuzzleBlock } from '@/types/puzzle';
 
 const props = defineProps<{
   block: IPuzzleBlock;
@@ -10,9 +10,9 @@ const props = defineProps<{
   <div
     v-if="block.value !== 0"
     :class="[
-      'absolute h-8 w-8 transition-[top,left]',
-      `left-${props.block.xAxis * 10}`,
-      `top-${props.block.yAxis * 10}`,
+      'absolute flex h-8 w-8 items-center justify-center rounded transition-[top,left]',
+      `left-${props.block.x * 10}`,
+      `top-${props.block.y * 10}`,
     ]"
   >
     {{ props.block.value }}
