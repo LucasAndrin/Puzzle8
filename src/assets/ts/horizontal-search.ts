@@ -85,15 +85,18 @@ export function nextOf(state: IPuzzle): IPuzzle[] {
   return nextStates;
 }
 
-export function horizontalSearch(
+export async function horizontalSearch(
   start: IPuzzle,
   end: IPuzzle,
-): IPuzzle[] | null {
+): Promise<IPuzzle[]> {
   if (isEqual(start, end)) {
     return [];
   }
 
-  const queue: IPuzzleNode[] = [{ state: start, path: [start] }];
+  const queue: IPuzzleNode[] = [
+    { state: cloneDeep(start), path: [cloneDeep(start)] },
+  ];
+
   const visited = new Set<string>([JSON.stringify(start)]);
 
   while (queue.length > 0) {
@@ -112,5 +115,5 @@ export function horizontalSearch(
     }
   }
 
-  return null;
+  throw new Error('No result found');
 }

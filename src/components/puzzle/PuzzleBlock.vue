@@ -7,7 +7,7 @@ const props = defineProps<{
 }>();
 
 onUpdated(() => {
-  console.log('Updated block: ', props.block.value);
+  // console.log('Updated block: ', props.block.value);
 });
 </script>
 
@@ -15,7 +15,7 @@ onUpdated(() => {
   <div
     v-if="props.block.value"
     :class="[
-      'absolute flex h-8 w-8 items-center justify-center rounded transition-[top,left]',
+      'absolute flex h-8 w-8 items-center justify-center rounded bg-indigo-500 transition-[top,left] delay-100',
       `left-${props.block.x * 10} top-${props.block.y * 10}`,
     ]"
   >
