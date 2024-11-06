@@ -8,25 +8,22 @@ import Puzzle from '@/components/puzzle/Puzzle.vue';
 import PuzzleBlock from '@/components/puzzle/PuzzleBlock.vue';
 
 /** Assets */
-import {
-  breadthFirstSearch,
-  toggleBlockOf,
-} from '@/assets/ts/horizontal-search';
+import { horizontalSearch, toggleBlockOf } from '@/assets/ts/horizontal-search';
 
 const start = ref<IPuzzle>([
+  [4, 3, 6],
+  [8, 7, 1],
+  [0, 5, 2],
+]);
+
+const end = ref<IPuzzle>([
   [1, 2, 3],
   [4, 5, 6],
   [7, 8, 0],
 ]);
 
-const end = ref<IPuzzle>([
-  [1, 2, 3],
-  [4, 5, 0],
-  [7, 8, 6],
-]);
-
 function resolve() {
-  console.log(breadthFirstSearch(start.value, end.value));
+  console.log(horizontalSearch(start.value, end.value));
 }
 </script>
 

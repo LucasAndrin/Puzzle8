@@ -85,7 +85,7 @@ export function nextOf(state: IPuzzle): IPuzzle[] {
   return nextStates;
 }
 
-export function breadthFirstSearch(
+export function horizontalSearch(
   start: IPuzzle,
   end: IPuzzle,
 ): IPuzzle[] | null {
