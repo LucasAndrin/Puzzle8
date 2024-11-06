@@ -7,18 +7,12 @@ const props = defineProps<{
   data: IPuzzle;
 }>();
 
-const blocks = computed(() => {
-  // const map: IPuzzleBlockMap = new Map();
-  const map: IPuzzleBlock[] = [];
-  console.log(props.data);
-  props.data.forEach((row, y) => {
-    row.forEach((value, x) => {
-      map.push({ value, x, y });
-      // map.set(value, { value, x, y });
-    });
-  });
-
-  return map;
+const blocks = computed<IPuzzleBlock[]>(() => {
+  return props.data.flatMap((row, y) =>
+    row.map((value, x) => {
+      return { value, x, y };
+    }),
+  );
 });
 </script>
 
@@ -30,7 +24,11 @@ const blocks = computed(() => {
     ]"
   >
     <div class="relative">
-      <slot v-for="block in blocks" :key="block.value" :block />
+      <slot
+        v-for="block in blocks"
+        :key="props.data.length * block.y + block.x"
+        :block
+      />
     </div>
   </div>
 </template>
