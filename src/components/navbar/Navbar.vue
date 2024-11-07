@@ -26,9 +26,6 @@ import NavbarLink from '@/components/navbar/NavbarLink.vue';
               <NavbarLink :to="{ name: 'horizontal' }"
                 >Horizontal Search</NavbarLink
               >
-              <NavbarLink :to="{ name: 'heuristic' }"
-                >Heuristic Search</NavbarLink
-              >
             </div>
           </div>
         </div>

@@ -8,6 +8,8 @@ import PuzzleBlock from '@/components/puzzle/PuzzleBlock.vue';
 
 /** Assets */
 import { horizontalSearch, toggleBlockOf } from '@/assets/ts/horizontal-search';
+import { heuristicSearch } from '@/assets/ts/heuristic-search';
+
 import { animate } from '@/assets/ts/puzzle';
 
 const start = ref<IPuzzle>([
@@ -43,9 +45,9 @@ function solve(method: (start: IPuzzle, end: IPuzzle) => Promise<IPuzzle[]>) {
 </script>
 
 <template>
-  <div class="text-dark flex flex-col gap-3 place-self-center dark:text-white">
-    <div class="flex flex-row gap-3">
-      <div class="flex flex-col">
+  <div class="text-dark flex flex-col gap-3 dark:text-white">
+    <div class="flex flex-row gap-3 justify-center">
+      <div class="flex flex-col gap-2">
         <h4>Start</h4>
 
         <Puzzle v-slot="{ block }" :data="start">
@@ -55,9 +57,15 @@ function solve(method: (start: IPuzzle, end: IPuzzle) => Promise<IPuzzle[]>) {
             @click="toggleBlockOf(start, block.value)"
           />
         </Puzzle>
+        <button
+            class="flex rounded bg-indigo-500 p-1 text-white px-9"
+            @click="solve(heuristicSearch)"
+          >
+            Heuristic
+          </button>
       </div>
 
-      <div class="flex flex-col">
+      <div class="flex flex-col gap-2">
         <h4>Target</h4>
 
         <Puzzle v-slot="{ block }" :data="end">
@@ -67,29 +75,20 @@ function solve(method: (start: IPuzzle, end: IPuzzle) => Promise<IPuzzle[]>) {
             @click="toggleBlockOf(end, block.value)"
           />
         </Puzzle>
+        <div class="flex flex-row gap-3 justify-center">
+          <button
+            class="flex rounded bg-indigo-500 p-1 text-white px-9"
+            @click="solve(horizontalSearch)"
+          >
+            Horizontal
+          </button>
+        </div>
       </div>
     </div>
-
-    <div class="flex flex-row gap-3">
-      <button
-        class="flex-grow rounded bg-indigo-500 p-1 text-white"
-        @click="solve(horizontalSearch)"
-      >
-        Horizontal
-      </button>
-
-      <button
-        class="flex-grow rounded bg-indigo-500 p-1 text-white"
-        @click="solve(horizontalSearch)"
-      >
-        Heuristic
-      </button>
-    </div>
-
     <template v-if="loading">Thinking...</template>
-
     <Puzzle v-else-if="result" :data="result" class="self-center" />
-
-    <template v-if="time"> Time: {{ time }}ms </template>
+    <template v-if="time">
+      <p class="text-center">Tempo: {{ time }}ms</p>
+    </template>
   </div>
 </template>
