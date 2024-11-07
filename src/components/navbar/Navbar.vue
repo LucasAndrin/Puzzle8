@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import NavbarLink from '@/components/navbar/NavbarLink.vue';
 </script>
 
 <template>
@@ -20,14 +19,6 @@ import NavbarLink from '@/components/navbar/NavbarLink.vue';
               alt="Your Company"
             />
           </RouterLink>
-
-          <div class="hidden sm:ml-6 sm:block">
-            <div class="flex space-x-4">
-              <NavbarLink :to="{ name: 'horizontal' }"
-                >Horizontal Search</NavbarLink
-              >
-            </div>
-          </div>
         </div>
       </div>
     </div>
