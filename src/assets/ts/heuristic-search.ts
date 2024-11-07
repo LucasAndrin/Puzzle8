@@ -1,21 +1,12 @@
-import type { IPuzzle, IPuzzleHeuristicNode } from '@/types/puzzle';
+import type {
+  IPuzzle,
+  IPuzzleHeuristicStep,
+  IPuzzleNode,
+} from '@/types/puzzle';
 import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
-import { blockOf, nextOf } from './horizontal-search';
-
-function manhattanDistance(state: IPuzzle, goal: IPuzzle): number {
-  let distance = 0;
-  for (let y = 0; y < state.length; y++) {
-    for (let x = 0; x < state[y].length; x++) {
-      const value = state[y][x];
-      if (value !== 0) {
-        const { x: goalX, y: goalY } = blockOf(goal, value);
-        distance += Math.abs(x - goalX) + Math.abs(y - goalY);
-      }
-    }
-  }
-  return distance;
-}
+import { manhattanDistance, nextOf } from './puzzle';
+import { addNode } from './puzzle-tree';
 
 export async function heuristicSearch(
   start: IPuzzle,
@@ -23,7 +14,8 @@ export async function heuristicSearch(
 ): Promise<IPuzzle[]> {
   if (isEqual(start, end)) return [];
 
-  const priorityQueue: IPuzzleHeuristicNode[] = [
+  const tree = new Map<string, IPuzzleNode>();
+  const priorityQueue: IPuzzleHeuristicStep[] = [
     {
       state: cloneDeep(start),
       path: [cloneDeep(start)],
@@ -31,22 +23,24 @@ export async function heuristicSearch(
       heuristic: 0,
     },
   ];
-
   const visited = new Set<string>([JSON.stringify(start)]);
 
   while (priorityQueue.length > 0) {
     priorityQueue.sort((a, b) => a.cost + a.heuristic - (b.cost + b.heuristic));
-    const { state, path, cost } = priorityQueue.shift() as IPuzzleHeuristicNode;
+    const { state, path, cost } = priorityQueue.shift() as IPuzzleHeuristicStep;
 
     for (const nextState of nextOf(state)) {
       const serializedState = JSON.stringify(nextState);
       if (visited.has(serializedState)) continue;
 
       visited.add(serializedState);
+      addNode(tree, state, nextState);
 
       const newPath = [...path, nextState];
-
-      if (isEqual(nextState, end)) return newPath;
+      if (isEqual(nextState, end)) {
+        console.log(tree);
+        return newPath;
+      }
 
       priorityQueue.push({
         state: nextState,

@@ -7,10 +7,10 @@ import Puzzle from '@/components/puzzle/Puzzle.vue';
 import PuzzleBlock from '@/components/puzzle/PuzzleBlock.vue';
 
 /** Assets */
-import { horizontalSearch, toggleBlockOf } from '@/assets/ts/horizontal-search';
+import { horizontalSearch } from '@/assets/ts/horizontal-search';
 import { heuristicSearch } from '@/assets/ts/heuristic-search';
 
-import { animate } from '@/assets/ts/puzzle';
+import { animate, toggleBlockOf } from '@/assets/ts/puzzle';
 
 const start = ref<IPuzzle>([
   [4, 3, 6],
@@ -46,7 +46,7 @@ function solve(method: (start: IPuzzle, end: IPuzzle) => Promise<IPuzzle[]>) {
 
 <template>
   <div class="text-dark flex flex-col gap-3 dark:text-white">
-    <div class="flex flex-row gap-3 justify-center">
+    <div class="flex flex-row justify-center gap-3">
       <div class="flex flex-col gap-2">
         <h4>Start</h4>
 
@@ -58,11 +58,11 @@ function solve(method: (start: IPuzzle, end: IPuzzle) => Promise<IPuzzle[]>) {
           />
         </Puzzle>
         <button
-            class="flex rounded bg-indigo-500 p-1 text-white px-9"
-            @click="solve(heuristicSearch)"
-          >
-            Heuristic
-          </button>
+          class="flex rounded bg-indigo-500 p-1 px-9 text-white"
+          @click="solve(heuristicSearch)"
+        >
+          Heuristic
+        </button>
       </div>
 
       <div class="flex flex-col gap-2">
@@ -75,9 +75,9 @@ function solve(method: (start: IPuzzle, end: IPuzzle) => Promise<IPuzzle[]>) {
             @click="toggleBlockOf(end, block.value)"
           />
         </Puzzle>
-        <div class="flex flex-row gap-3 justify-center">
+        <div class="flex flex-row justify-center gap-3">
           <button
-            class="flex rounded bg-indigo-500 p-1 text-white px-9"
+            class="flex rounded bg-indigo-500 p-1 px-9 text-white"
             @click="solve(horizontalSearch)"
           >
             Horizontal

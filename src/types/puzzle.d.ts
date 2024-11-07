@@ -1,11 +1,11 @@
 export type IPuzzle = number[][];
 
-export type IPuzzleNode = {
+export type IPuzzleStep = {
   state: IPuzzle;
   path: IPuzzle[];
 };
 
-export type IPuzzleHeuristicNode = IPuzzleNode & {
+export type IPuzzleHeuristicStep = IPuzzleStep & {
   cost: number;
   heuristic: number;
 };
@@ -20,3 +20,9 @@ export type IPuzzleBlockPos = {
 };
 
 export type IPuzzleBlockMap = Map<IPuzzleBlock['value'], IPuzzleBlock>;
+
+export type IPuzzleNode = {
+  state: IPuzzle;
+  children: IPuzzleNode[];
+  parent?: IPuzzleNode;
+};
