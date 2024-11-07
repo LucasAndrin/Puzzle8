@@ -5,6 +5,11 @@ export type IPuzzleNode = {
   path: IPuzzle[];
 };
 
+export type IPuzzleHeuristicNode = IPuzzleNode & {
+  cost: number;
+  heuristic: number;
+};
+
 export type IPuzzleBlock = {
   value: number;
 } & IPuzzleBlockPos;

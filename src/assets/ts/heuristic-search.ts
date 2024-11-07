@@ -1,4 +1,4 @@
-import type { IPuzzle, IPuzzleNode } from '@/types/puzzle';
+import type { IPuzzle, IPuzzleHeuristicNode } from '@/types/puzzle';
 import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
 import { blockOf, nextOf } from './horizontal-search';
@@ -23,15 +23,20 @@ export async function heuristicSearch(
 ): Promise<IPuzzle[]> {
   if (isEqual(start, end)) return [];
 
-  const priorityQueue: IPuzzleNode[] = [
-    { state: cloneDeep(start), path: [cloneDeep(start)], cost: 0 },
+  const priorityQueue: IPuzzleHeuristicNode[] = [
+    {
+      state: cloneDeep(start),
+      path: [cloneDeep(start)],
+      cost: 0,
+      heuristic: 0,
+    },
   ];
 
   const visited = new Set<string>([JSON.stringify(start)]);
 
   while (priorityQueue.length > 0) {
-    priorityQueue.sort((a, b) => (a.cost + a.heuristic) - (b.cost + b.heuristic));
-    const { state, path, cost } = priorityQueue.shift() as IPuzzleNode;
+    priorityQueue.sort((a, b) => a.cost + a.heuristic - (b.cost + b.heuristic));
+    const { state, path, cost } = priorityQueue.shift() as IPuzzleHeuristicNode;
 
     for (const nextState of nextOf(state)) {
       const serializedState = JSON.stringify(nextState);
@@ -40,7 +45,6 @@ export async function heuristicSearch(
       visited.add(serializedState);
 
       const newPath = [...path, nextState];
-      const heuristic = manhattanDistance(nextState, end);
 
       if (isEqual(nextState, end)) return newPath;
 
@@ -48,7 +52,7 @@ export async function heuristicSearch(
         state: nextState,
         path: newPath,
         cost: cost + 1,
-        heuristic,
+        heuristic: manhattanDistance(nextState, end),
       });
     }
   }
